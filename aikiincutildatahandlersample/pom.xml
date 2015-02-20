@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>com.aikiinc</groupId>
 		<artifactId>data-handler-parent</artifactId>
-		<version>1.0.0</version>
+		<version>0.0.0</version>
 	</parent>
 
 	<prerequisites>
@@ -45,14 +45,6 @@
 	</build>
 
 	<dependencies>
-
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.19</version>
-			<scope>compile</scope>
-		</dependency>
-
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -139,12 +131,12 @@
 			<version>${spring.version}</version>
 		</dependency>
 
-		<!-- Others -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.6</version>
-		</dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.19</version>
+            <scope>compile</scope>
+        </dependency>
 
 		<dependency>
 			<groupId>cglib</groupId>
@@ -202,7 +194,7 @@
 
 		<dependency>
 			<groupId>com.aikiinc</groupId>
-			<artifactId>dbunit-test</artifactId>
+			<artifactId>dbunit-base-test</artifactId>
 			<version>0.0.0</version>
 		</dependency>
 

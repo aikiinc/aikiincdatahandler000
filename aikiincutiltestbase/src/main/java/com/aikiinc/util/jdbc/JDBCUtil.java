@@ -11,9 +11,9 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 /**
  * Base JDBC utility for handling Hibernate Connection and information
  * 
- * @Copyright (C) Aiki Innovations Inc 2015-2015 - http://www.aikiinc.com
- * @Author: Author: Philip Jahmani Chauvet. 
- * @Dated: Feb 13, 2015
+ * @Copyright (C) Aiki Innovations Inc 2013-2015 - http://www.aikiinc.com
+ * @Author: Author: Philip Jahmani Chauvet.
+ * @Dated: Feb 03, 2013 - Feb 19, 2015
  */
 public class JDBCUtil extends JdbcDaoSupport {
 	private static final Logger LOG = Logger.getLogger(JDBCUtil.class);
@@ -48,7 +48,7 @@ public class JDBCUtil extends JdbcDaoSupport {
 			LOG.info("conn UserName: " + dmd.getUserName());
 		} catch (SQLException e) {
 			LOG.error("----------------");
-			LOG.error(e.getMessage());
+			LOG.error(getEntireExceptionMessage(e));
 		}
 	}
 
@@ -62,7 +62,7 @@ public class JDBCUtil extends JdbcDaoSupport {
 			LOG.info("conn UserName: " + dmd.getUserName());
 		} catch (SQLException e) {
 			LOG.error("----------------");
-			LOG.error(e.getMessage());
+			LOG.error(JDBCUtil.getEntireExceptionMessage(e));
 		}
 
 		return dmd;
@@ -105,7 +105,8 @@ public class JDBCUtil extends JdbcDaoSupport {
 				} catch (Exception e) {
 				}
 			} catch (Throwable e) {
-				throw new JDBCUtilException(e);
+				throw new JDBCUtilException(
+						JDBCUtil.getEntireExceptionMessage(e));
 			}
 		}
 
@@ -129,6 +130,14 @@ public class JDBCUtil extends JdbcDaoSupport {
 			return userName;
 		}
 
+		public Connection getConnection() {
+			return this.con;
+		}
+
+		public String getDatabaseProductName() {
+			return databaseProductName;
+		}
+
 		@Override
 		public String toString() {
 			return "ConnectionInfo [driverName=" + driverName
@@ -140,4 +149,18 @@ public class JDBCUtil extends JdbcDaoSupport {
 
 	}
 
+	/**
+	 * Some exceptions, don't show the real cause of the error. This method
+	 * provides the combines the Throwable.getMessage() with
+	 * Throwable.getCause(). Specially handy when drilling down into a database
+	 * exception, getMessage() does no always provide the full details -
+	 * getCause() sometimes does.
+	 * 
+	 * @param e
+	 * @return
+	 */
+	public static String getEntireExceptionMessage(Throwable e) {
+		return "getMessage(): " + e.getMessage() + ", getCause(): "
+				+ e.getCause();
+	}
 }
